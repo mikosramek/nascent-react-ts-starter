@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { FormInput } from "components/shared/FormInput";
 import { useInput, BaseInputs } from "hooks/form/useInput";
 import { validatePhoneNumber } from "utils/general";
-import * as Styled from "./Landing.styled";
 import { Wrapper, Heading } from "styles/shared";
+import * as Styled from "./Landing.styled";
 
 const baseInputs = {
   firstName: {
