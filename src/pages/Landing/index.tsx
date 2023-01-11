@@ -1,43 +1,60 @@
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { FormInput } from "components/shared/FormInput";
 import { useInput, BaseInputs } from "hooks/form/useInput";
+import { validatePhoneNumber } from "utils/general";
 import * as Styled from "./Landing.styled";
+import { Wrapper, Heading } from "styles/shared";
 
 const baseInputs = {
   firstName: {
     val: "",
     label: "First name",
-    errorString: "First name cannot be blank",
+    errorLabelCopy: "First name cannot be blank",
     validate: (val) => !!val,
   },
   lastName: {
     val: "",
     label: "Last name",
-    errorString: "Last name cannot be blank",
+    errorLabelCopy: "Last name cannot be blank",
     validate: (val) => !!val,
   },
   phoneNumber: {
     val: "",
     label: "Phone number",
-    errorString: "Phone number must be 10 numbers",
-    validate: (val) => val.length === 10,
+    errorLabelCopy: "Phone number must be 10 numbers",
+    validate: validatePhoneNumber,
   },
   address: {
     val: "",
     label: "Address",
-    errorString: "Address cannot be blank",
+    errorLabelCopy: "Address cannot be blank",
     validate: (val) => !!val,
   },
-} as BaseInputs;
+} satisfies BaseInputs;
 
 export const Landing = () => {
-  const { inputs, handleInputChange, validateInputs } = useInput({
+  const navigate = useNavigate();
+  const { inputs, handleInputChange, validateInputs, clearInputs } = useInput({
     baseInputs,
+    useSessionStorage: true,
   });
 
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const isFormValid = validateInputs();
+      if (!isFormValid) return;
+      // const form = inputs as typeof baseInputs;
+      navigate("/pokemon");
+    },
+    [validateInputs, navigate]
+  );
+
   return (
-    <Styled.Wrapper>
-      <Styled.Heading>Let's get to know you</Styled.Heading>
-      <Styled.Form>
+    <Wrapper>
+      <Heading>Let's get to know you</Heading>
+      <Styled.Form onSubmit={handleSubmit}>
         {Object.entries(inputs).map(
           ([name, { val, label, error = "", specialType }], index) => {
             return (
@@ -53,7 +70,13 @@ export const Landing = () => {
             );
           }
         )}
+        <Styled.ButtonWrapper>
+          <Styled.Button type="submit">Next</Styled.Button>
+          <Styled.Button type="reset" onClick={clearInputs}>
+            Reset
+          </Styled.Button>
+        </Styled.ButtonWrapper>
       </Styled.Form>
-    </Styled.Wrapper>
+    </Wrapper>
   );
 };

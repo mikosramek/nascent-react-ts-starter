@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.section`
-  border: 1px solid var(--black);
-`;
-export const Heading = styled.h2``;
-
 export const Form = styled.form``;
 
-export const Button = styled.button``;
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Button = styled.button`
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 18px;
+  flex-grow: 1;
+`;

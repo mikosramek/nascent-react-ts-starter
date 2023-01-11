@@ -7,6 +7,7 @@ const footerHeight = 40;
 export const Header = styled.header`
   ${Center}
   height: ${headerHeight}px;
+  background: var(--white);
 `;
 
 export const Heading = styled.h1`
@@ -17,6 +18,7 @@ export const Footer = styled.footer`
   ${Center}
   height: ${footerHeight}px;
   font-size: 18px;
+  background: var(--white);
 `;
 
 export const RouteWrapper = styled.main`
@@ -25,4 +27,8 @@ export const RouteWrapper = styled.main`
   width: 80%;
   max-width: 1200px;
   margin: 0 auto;
+`;
+
+export const AppWrapper = styled.div`
+  background: var(--grey);
 `;
