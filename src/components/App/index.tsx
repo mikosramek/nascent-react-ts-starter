@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Landing } from "pages/Landing/index";
+import * as Styled from "./App.styled";
 
 const router = createBrowserRouter([
   {
@@ -11,11 +12,13 @@ const router = createBrowserRouter([
 export function App() {
   return (
     <div className="App">
-      <header>
-        <h1>header</h1>
-      </header>
-      <RouterProvider router={router} />
-      <footer>Miko Sramek 2023</footer>
+      <Styled.Header>
+        <Styled.Heading>Who are you?</Styled.Heading>
+      </Styled.Header>
+      <Styled.RouteWrapper>
+        <RouterProvider router={router} />
+      </Styled.RouteWrapper>
+      <Styled.Footer>Miko Sramek 2023</Styled.Footer>
     </div>
   );
 }
