@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useCallback, useReducer } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { usePokemonStore, PokemonRef } from "store/pokemon";
 
 const FETCH_COUNT = 20;
 
@@ -67,11 +68,43 @@ const FETCH_COUNT = 20;
 // each pokemon component will be responsible for fetching their own data
 
 export const usePokemon = () => {
-  const fetchInitialPokemonList = useCallback(() => {}, []); // might be better as useEffect?
+  const setPokemonRefs = usePokemonStore((state) => state.setPokemonRefs);
+  const setPokemon = usePokemonStore((state) => state.setPokemon);
+  const [fetchedPokemonRefs, setFetchedRefs] = useState(false);
+
+  const fetchPokemonRefs = useCallback(async () => {
+    try {
+      const {
+        data: { results },
+      } = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=151");
+      const refs: PokemonRef = {};
+      results.forEach((pokemonRef: { name: string; url: string }) => {
+        refs[pokemonRef.name] = { url: pokemonRef.url };
+      });
+
+      setPokemonRefs(refs);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [setPokemonRefs]);
+
+  useEffect(() => {
+    if (fetchedPokemonRefs) return;
+    setFetchedRefs(true);
+    fetchPokemonRefs();
+  }, [fetchPokemonRefs, fetchedPokemonRefs]);
+
   const fetchPokemon = useCallback(
-    ({ pokemonName }: { pokemonName: string }) => {},
-    []
+    async ({ url }: { url: string }) => {
+      try {
+        const { data } = await axios.get(url);
+        setPokemon(data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [setPokemon]
   );
 
-  return { fetchInitialPokemonList, fetchPokemon };
+  return { fetchedPokemonRefs, fetchPokemon };
 };

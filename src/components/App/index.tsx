@@ -24,6 +24,7 @@ export function App() {
     <Styled.AppWrapper>
       <Styled.Header>
         <Styled.Heading>Who are you?</Styled.Heading>
+        {/* TODO: nav bubbles for the 3 steps */}
       </Styled.Header>
       <Styled.RouteWrapper>
         <RouterProvider router={router} />

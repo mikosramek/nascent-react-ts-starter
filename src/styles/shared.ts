@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Wrapper = styled.section`
   border: 1px solid var(--border);
   padding: 25px;
-  width: 50%;
+  width: 70%;
   border-radius: 20px;
   background: var(--white);
   box-shadow: 0 2px 10px var(--shadow);
