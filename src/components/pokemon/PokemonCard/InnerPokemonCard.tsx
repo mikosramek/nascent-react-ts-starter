@@ -16,6 +16,7 @@ export const InnerPokemonCard = ({
   sprite,
   types,
 }: InnerPokemonCardProps) => {
+  // TODO: Slowload that image in
   return (
     <Styled.InnerWrapper>
       {!!name && (

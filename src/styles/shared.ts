@@ -26,3 +26,13 @@ export const Heading = styled.h2`
     background: var(--black);
   }
 `;
+
+export const Button = styled.button`
+  padding: 6px 12px 8px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  &:disabled {
+    cursor: auto;
+  }
+`;

@@ -8,6 +8,7 @@ type Props = {
   value: string;
   onChange: (name: any, input: string) => void;
   errorMessage?: string;
+  placeholder?: string;
 };
 
 export const FormInput = ({
@@ -17,6 +18,7 @@ export const FormInput = ({
   value,
   onChange,
   errorMessage,
+  placeholder = "",
 }: Props) => {
   return (
     <>
@@ -33,6 +35,7 @@ export const FormInput = ({
         value={value}
         onChange={(e) => onChange(inputName, e.target.value)}
         aria-invalid={!!errorMessage}
+        placeholder={placeholder}
       />
     </>
   );

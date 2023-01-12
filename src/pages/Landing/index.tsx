@@ -73,7 +73,7 @@ export const Landing = () => {
         <Styled.ButtonWrapper>
           <Styled.Button type="submit">Next</Styled.Button>
           <Styled.Button type="reset" onClick={clearInputs}>
-            Reset
+            Clear form
           </Styled.Button>
         </Styled.ButtonWrapper>
       </Styled.Form>

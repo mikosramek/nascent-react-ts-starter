@@ -17,6 +17,14 @@ type PokemonMap = Record<string, PokemonData>;
 
 export type TypeFilter = ValidColorType | "";
 
+export const filterModes = {
+  inclusive: "inclusive",
+  exclusive: "exclusive",
+  only: "only",
+} as const;
+
+export type FilterMode = keyof typeof filterModes;
+
 interface State {
   pokemonRefs: PokemonRef;
   setPokemonRefs: (pokemon: PokemonRef) => void;
@@ -27,7 +35,8 @@ interface State {
   getIsPokemonFetched: (name: string) => boolean;
   pokemonNameFilter: string;
   pokemonTypeFilter: TypeFilter;
-  setFilter: (name?: string, type?: TypeFilter) => void;
+  pokemonTypeFilterMode: FilterMode;
+  setFilter: (name?: string, type?: TypeFilter, mode?: FilterMode) => void;
   chosenPokemonRef: InnerPokemonCardProps;
   setChosenPokemonRef: ({ name, sprite, types }: InnerPokemonCardProps) => void;
 }
@@ -36,11 +45,13 @@ type FilterProps = {
   pokemon: PokemonData;
   pokemonNameFilter: string;
   pokemonTypeFilter: TypeFilter;
+  pokemonTypeFilterMode: FilterMode;
 };
 const filterPokemon = ({
   pokemon,
   pokemonNameFilter,
   pokemonTypeFilter,
+  pokemonTypeFilterMode,
 }: FilterProps) => {
   const { name, types } = pokemon;
   let shouldFilter = false;
@@ -58,8 +69,17 @@ const filterPokemon = ({
       ""
     ); // results in string like `grasspoison`
     const typeRegex = new RegExp(pokemonTypeFilter, "gi");
-    if (!typeRegex.test(pokemonTypes)) {
-      shouldFilter = true;
+
+    switch (pokemonTypeFilterMode) {
+      case "exclusive":
+        if (typeRegex.test(pokemonTypes)) shouldFilter = true;
+        break;
+      case "inclusive":
+        if (!typeRegex.test(pokemonTypes)) shouldFilter = true;
+        break;
+      case "only":
+        if (pokemonTypes !== pokemonTypeFilter) shouldFilter = true;
+        break;
     }
   }
 
@@ -80,7 +100,8 @@ export const usePokemonStore = create<State>()(
         })),
       getIsPokemonFetched: (name: string) => !!get().pokemon[name],
       getPokemon: (name: string) => {
-        const { pokemonNameFilter, pokemonTypeFilter } = get();
+        const { pokemonNameFilter, pokemonTypeFilter, pokemonTypeFilterMode } =
+          get();
         const pokemonExists = !!get().pokemon[name];
 
         if (!pokemonExists) return null;
@@ -89,14 +110,17 @@ export const usePokemonStore = create<State>()(
           pokemon: get().pokemon[name],
           pokemonNameFilter,
           pokemonTypeFilter,
+          pokemonTypeFilterMode,
         });
       },
       pokemonNameFilter: "",
       pokemonTypeFilter: "",
-      setFilter: (name?: string, type?: TypeFilter) =>
+      pokemonTypeFilterMode: "inclusive",
+      setFilter: (name?: string, type?: TypeFilter, mode?: FilterMode) =>
         set(() => ({
           ...(name !== undefined ? { pokemonNameFilter: name } : {}),
           ...(type !== undefined ? { pokemonTypeFilter: type } : {}),
+          ...(mode !== undefined ? { pokemonTypeFilterMode: mode } : {}),
         })),
       chosenPokemonRef: {},
       setChosenPokemonRef: ({

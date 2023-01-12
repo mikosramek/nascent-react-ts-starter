@@ -15,4 +15,16 @@ body {
   --text-backing: #0e0e0ebb;
   --grey: #c9c9c9;
   --impact: #990d0d;
+  --outline: #990d0d77;
+  --unknown: #68a090;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
