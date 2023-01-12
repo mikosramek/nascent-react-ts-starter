@@ -1,8 +1,6 @@
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
-import { usePokemonStore, PokemonRef } from "store/pokemon";
-
-const FETCH_COUNT = 20;
+import { useCallback, useEffect } from "react";
+import { usePokemonStore, PokemonRef, PokemonData } from "store/pokemon";
 
 // https://pokeapi.co/api/v2/pokemon?limit=1154
 /*
@@ -70,7 +68,9 @@ const FETCH_COUNT = 20;
 export const usePokemon = () => {
   const setPokemonRefs = usePokemonStore((state) => state.setPokemonRefs);
   const setPokemon = usePokemonStore((state) => state.setPokemon);
-  const [fetchedPokemonRefs, setFetchedRefs] = useState(false);
+  const fetchedPokemonRefs = usePokemonStore(
+    (state) => state.fetchedPokemonRefs
+  );
 
   const fetchPokemonRefs = useCallback(async () => {
     try {
@@ -90,7 +90,6 @@ export const usePokemon = () => {
 
   useEffect(() => {
     if (fetchedPokemonRefs) return;
-    setFetchedRefs(true);
     fetchPokemonRefs();
   }, [fetchPokemonRefs, fetchedPokemonRefs]);
 
@@ -98,7 +97,8 @@ export const usePokemon = () => {
     async ({ url }: { url: string }) => {
       try {
         const { data } = await axios.get(url);
-        setPokemon(data);
+        const { name, sprites, types } = data as PokemonData;
+        setPokemon({ name, sprites, types });
       } catch (error) {
         console.error(error);
       }

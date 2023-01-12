@@ -8,17 +8,10 @@ export const List = styled.ul`
   overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
+  background: var(--white);
 `;
 
 export const ListItem = styled.li`
-  background: var(--grey);
-  padding: 5px;
   margin: 5px;
   width: calc((100% - 40px) / 4);
-  &:nth-of-type(4n - 3) {
-    margin-left: 0;
-  }
-  &:nth-of-type(4n) {
-    margin-right: 0;
-  }
 `;

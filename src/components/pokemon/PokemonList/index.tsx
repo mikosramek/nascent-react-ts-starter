@@ -6,9 +6,9 @@ export const PokemonList = () => {
   const pokemonRefs = usePokemonStore((store) => store.pokemonRefs);
   return (
     <Styled.List>
-      {Object.entries(pokemonRefs).map(([name, { url }]) => {
+      {Object.entries(pokemonRefs).map(([name, { url }], index) => {
         return (
-          <Styled.ListItem>
+          <Styled.ListItem key={`pokemon-${index}`}>
             <PokemonCard name={name} url={url} />
           </Styled.ListItem>
         );
