@@ -1,3 +1,4 @@
+import { PokemonFilters } from "components/pokemon/PokemonFilters";
 import { PokemonList } from "components/pokemon/PokemonList";
 import { LoadingIndicator } from "components/shared/LoadingIndicator";
 import { usePokemon } from "hooks/api/usePokemon";
@@ -12,7 +13,7 @@ export const Pokemon = () => {
       {!!fetchedPokemonRefs && (
         <>
           {/* TODO Chosen Pokemon */}
-          {/* TODO Filters */}
+          <PokemonFilters />
           <PokemonList />
         </>
       )}

@@ -32,6 +32,7 @@ export const Name = styled.h3`
   padding: 2px 6px 4px;
   color: var(--white);
   margin: 10px 0 0;
+  text-transform: capitalize;
 `;
 
 export const Types = styled(PokemonTypes)`
