@@ -1,3 +1,4 @@
+import { InnerPokemonCardProps } from "components/pokemon/PokemonCard/InnerPokemonCard";
 import { ValidColorType } from "utils/general";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
@@ -27,6 +28,8 @@ interface State {
   pokemonNameFilter: string;
   pokemonTypeFilter: TypeFilter;
   setFilter: (name?: string, type?: TypeFilter) => void;
+  chosenPokemonRef: InnerPokemonCardProps;
+  setChosenPokemonRef: ({ name, sprite, types }: InnerPokemonCardProps) => void;
 }
 
 type FilterProps = {
@@ -53,7 +56,7 @@ const filterPokemon = ({
     const pokemonTypes = types.reduce(
       (total, current) => total + current.type.name,
       ""
-    ); // results in `grasspoison`
+    ); // results in string like `grasspoison`
     const typeRegex = new RegExp(pokemonTypeFilter, "gi");
     if (!typeRegex.test(pokemonTypes)) {
       shouldFilter = true;
@@ -95,6 +98,13 @@ export const usePokemonStore = create<State>()(
           ...(name !== undefined ? { pokemonNameFilter: name } : {}),
           ...(type !== undefined ? { pokemonTypeFilter: type } : {}),
         })),
+      chosenPokemonRef: {},
+      setChosenPokemonRef: ({
+        name = "",
+        sprite = "",
+        types = [],
+      }: InnerPokemonCardProps) =>
+        set(() => ({ chosenPokemonRef: { name, sprite, types } })),
     }),
     { name: "pokemon-state" }
   )

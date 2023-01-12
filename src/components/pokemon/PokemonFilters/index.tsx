@@ -30,6 +30,7 @@ export const PokemonFilters = () => {
           </option>
         ))}
       </select>
+      {/* TODO: exclusive, inclusive, only */}
     </form>
   );
 };

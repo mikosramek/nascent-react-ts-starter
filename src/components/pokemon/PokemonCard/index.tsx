@@ -4,6 +4,7 @@ import { usePokemonStore } from "store/pokemon";
 import { LoadingIndicator } from "components/shared/LoadingIndicator";
 
 import * as Styled from "./PokemonCard.styled";
+import { InnerPokemonCard } from "./InnerPokemonCard";
 
 type Props = {
   name: string;
@@ -13,6 +14,9 @@ type Props = {
 export const PokemonCard = ({ name, url }: Props) => {
   const { fetchPokemon } = usePokemon();
   const pokemon = usePokemonStore((state) => state.getPokemon(name));
+  const setChosenPokemonRef = usePokemonStore(
+    (state) => state.setChosenPokemonRef
+  );
   const isPokemonFetched = usePokemonStore((state) =>
     state.getIsPokemonFetched(name)
   );
@@ -35,12 +39,21 @@ export const PokemonCard = ({ name, url }: Props) => {
         <>
           {!!pokemon && (
             <Styled.Wrapper>
-              <Styled.Name>{pokemon.name}</Styled.Name>
-              <Styled.Image
-                src={pokemon.sprites.front_default}
-                alt={`${pokemon.name}`}
-              />
-              <Styled.Types types={pokemon.types} />
+              <Styled.Button
+                onClick={() =>
+                  setChosenPokemonRef({
+                    name: pokemon.name,
+                    sprite: pokemon.sprites.front_default,
+                    types: pokemon.types,
+                  })
+                }
+              >
+                <InnerPokemonCard
+                  name={pokemon.name}
+                  sprite={pokemon.sprites.front_default}
+                  types={pokemon.types}
+                />
+              </Styled.Button>
             </Styled.Wrapper>
           )}
         </>

@@ -3,18 +3,31 @@ import { PokemonTypes } from "components/pokemon/PokemonTypes";
 
 export const Wrapper = styled.li`
   background: var(--white);
+  border-radius: 5px;
+  box-shadow: 0 2px 6px var(--shadow);
+  margin: 5px;
+  width: calc((100% - 40px) / 4);
+  cursor: pointer;
+  height: 150px;
+`;
+
+export const Button = styled.button`
+  width: 100%;
+  padding: 0;
+  border: none;
+  cursor: inherit;
+  background: none;
+  height: 100%;
+`;
+
+export const InnerWrapper = styled.div`
+  position: relative;
   padding: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  border-radius: 5px;
-  height: 150px;
-  box-shadow: 0 2px 6px var(--shadow);
-  cursor: pointer;
-  position: relative;
-  margin: 5px;
-  width: calc((100% - 40px) / 4);
+  height: 100%;
 `;
 
 export const Image = styled.img`

@@ -10,7 +10,7 @@ export const List = styled.ul`
   background: var(--white);
   margin: 10px 0;
   padding: 5px 0;
-  height: 50vh;
+  height: 35vh;
   border-top: 1px solid var(--shadow);
   border-bottom: 1px solid var(--shadow);
 `;
