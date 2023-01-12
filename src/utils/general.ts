@@ -26,3 +26,10 @@ export const typeColorMap = {
 };
 
 export const typeNames = Object.keys(typeColorMap);
+
+export const STORED_POKEMON_KEY = "chosen-pokemon";
+
+export const normalizeCamelCase = (word: string) => {
+  const brokenUp = word.replace(/[A-Z]/g, (a) => ` ${a.toLowerCase()}`);
+  return brokenUp.charAt(0).toUpperCase() + brokenUp.slice(1);
+};

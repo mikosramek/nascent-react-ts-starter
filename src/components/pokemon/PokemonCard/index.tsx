@@ -5,6 +5,7 @@ import { LoadingIndicator } from "components/shared/LoadingIndicator";
 
 import * as Styled from "./PokemonCard.styled";
 import { InnerPokemonCard } from "./InnerPokemonCard";
+import { STORED_POKEMON_KEY } from "utils/general";
 
 type Props = {
   name: string;
@@ -32,6 +33,17 @@ export const PokemonCard = ({ name, url }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const selectPokemon = useCallback(() => {
+    if (!pokemon) return;
+    const ref = {
+      name: pokemon.name,
+      sprite: pokemon.sprites.front_default,
+      types: pokemon.types,
+    };
+    setChosenPokemonRef(ref);
+    localStorage.setItem(STORED_POKEMON_KEY, JSON.stringify(ref));
+  }, [pokemon, setChosenPokemonRef]);
+
   return (
     <>
       {!isPokemonFetched && <LoadingIndicator />}
@@ -39,15 +51,7 @@ export const PokemonCard = ({ name, url }: Props) => {
         <>
           {!!pokemon && (
             <Styled.Wrapper>
-              <Styled.Button
-                onClick={() =>
-                  setChosenPokemonRef({
-                    name: pokemon.name,
-                    sprite: pokemon.sprites.front_default,
-                    types: pokemon.types,
-                  })
-                }
-              >
+              <Styled.Button onClick={selectPokemon}>
                 <InnerPokemonCard
                   name={pokemon.name}
                   sprite={pokemon.sprites.front_default}

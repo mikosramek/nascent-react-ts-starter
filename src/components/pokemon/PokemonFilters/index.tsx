@@ -63,7 +63,6 @@ export const PokemonFilters = () => {
           );
         })}
       </Styled.Fieldset>
-      {/* TODO: exclusive, inclusive, only */}
     </Styled.Form>
   );
 };

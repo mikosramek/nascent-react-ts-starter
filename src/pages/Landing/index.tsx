@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { FormInput } from "components/shared/FormInput";
 import { useInput, BaseInputs } from "hooks/form/useInput";
 import { validatePhoneNumber } from "utils/general";
-import { Wrapper, Heading } from "styles/shared";
+import { Wrapper, Heading, Button } from "styles/shared";
+
 import * as Styled from "./Landing.styled";
+import { useUserStore } from "store/user";
 
 const baseInputs = {
   firstName: {
@@ -39,16 +41,23 @@ export const Landing = () => {
     baseInputs,
     useSessionStorage: true,
   });
+  const setUser = useUserStore((state) => state.setUser);
 
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const isFormValid = validateInputs();
       if (!isFormValid) return;
-      // const form = inputs as typeof baseInputs;
+      const form = inputs as typeof baseInputs;
+      setUser({
+        firstName: form.firstName.val,
+        lastName: form.lastName.val,
+        phoneNumber: form.phoneNumber.val,
+        address: form.address.val,
+      });
       navigate("/pokemon");
     },
-    [validateInputs, navigate]
+    [validateInputs, inputs, setUser, navigate]
   );
 
   return (
