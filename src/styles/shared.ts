@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { shortScreen } from "./media";
 
 export const Wrapper = styled.section`
   border: 1px solid var(--border);
@@ -7,6 +8,11 @@ export const Wrapper = styled.section`
   border-radius: 20px;
   background: var(--white);
   box-shadow: 0 2px 10px var(--shadow);
+  max-height: 100%;
+  overflow-y: hidden;
+  ${shortScreen(css`
+    overflow-y: scroll;
+  `)}
 `;
 
 export const Heading = styled.h2`

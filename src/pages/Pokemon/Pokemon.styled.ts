@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const LoadingWrapper = styled.div`
+  height: 35vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ChosenPokemonCard = styled.div`
   height: 150px;
   box-shadow: 0px 2px 8px var(--shadow);

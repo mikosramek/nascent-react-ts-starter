@@ -31,7 +31,11 @@ export const Pokemon = () => {
   return (
     <Wrapper>
       <Heading>Choose your favourite Gen 1 Pokemon</Heading>
-      {!fetchedPokemonRefs && <LoadingIndicator />}
+      {!fetchedPokemonRefs && (
+        <Styled.LoadingWrapper>
+          <LoadingIndicator />
+        </Styled.LoadingWrapper>
+      )}
       {!!fetchedPokemonRefs && (
         <>
           <Styled.ChosenWrapper>

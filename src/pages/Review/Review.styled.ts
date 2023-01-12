@@ -5,6 +5,7 @@ export const InfoWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin-top: 25px;
 `;
 
 export const InfoList = styled.ul`
@@ -25,4 +26,11 @@ export const PokemonWrapper = styled.div`
 export const Button = styled(ButtonBase)`
   display: block;
   margin: 15px auto 0;
+`;
+
+export const ResponseCopy = styled.span`
+  text-transform: capitalize;
+  display: block;
+  text-align: center;
+  margin: 10px 0 0;
 `;
