@@ -23,10 +23,45 @@ interface State {
   pokemon: PokemonMap;
   setPokemon: (newPokemon: PokemonData) => void;
   getPokemon: (name: string) => PokemonData | null;
+  getIsPokemonFetched: (name: string) => boolean;
   pokemonNameFilter: string;
   pokemonTypeFilter: TypeFilter;
   setFilter: (name?: string, type?: TypeFilter) => void;
 }
+
+type FilterProps = {
+  pokemon: PokemonData;
+  pokemonNameFilter: string;
+  pokemonTypeFilter: TypeFilter;
+};
+const filterPokemon = ({
+  pokemon,
+  pokemonNameFilter,
+  pokemonTypeFilter,
+}: FilterProps) => {
+  const { name, types } = pokemon;
+  let shouldFilter = false;
+
+  if (pokemonNameFilter !== "") {
+    const nameRegex = new RegExp(pokemonNameFilter, "gi");
+    if (!nameRegex.test(name)) {
+      shouldFilter = true;
+    }
+  }
+
+  if (pokemonTypeFilter !== "") {
+    const pokemonTypes = types.reduce(
+      (total, current) => total + current.type.name,
+      ""
+    ); // results in `grasspoison`
+    const typeRegex = new RegExp(pokemonTypeFilter, "gi");
+    if (!typeRegex.test(pokemonTypes)) {
+      shouldFilter = true;
+    }
+  }
+
+  return shouldFilter ? null : pokemon;
+};
 
 export const usePokemonStore = create<State>()(
   devtools(
@@ -40,7 +75,19 @@ export const usePokemonStore = create<State>()(
         set((state) => ({
           pokemon: { ...state.pokemon, [newPokemon.name]: newPokemon },
         })),
-      getPokemon: (name: string) => get().pokemon[name] || null,
+      getIsPokemonFetched: (name: string) => !!get().pokemon[name],
+      getPokemon: (name: string) => {
+        const { pokemonNameFilter, pokemonTypeFilter } = get();
+        const pokemonExists = !!get().pokemon[name];
+
+        if (!pokemonExists) return null;
+
+        return filterPokemon({
+          pokemon: get().pokemon[name],
+          pokemonNameFilter,
+          pokemonTypeFilter,
+        });
+      },
       pokemonNameFilter: "",
       pokemonTypeFilter: "",
       setFilter: (name?: string, type?: TypeFilter) =>

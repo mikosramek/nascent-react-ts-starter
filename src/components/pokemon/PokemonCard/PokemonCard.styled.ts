@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { PokemonTypes } from "components/pokemon/PokemonTypes";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.li`
   background: var(--white);
   padding: 5px;
   display: flex;
@@ -13,6 +13,8 @@ export const Wrapper = styled.div`
   box-shadow: 0 2px 6px var(--shadow);
   cursor: pointer;
   position: relative;
+  margin: 5px;
+  width: calc((100% - 40px) / 4);
 `;
 
 export const Image = styled.img`

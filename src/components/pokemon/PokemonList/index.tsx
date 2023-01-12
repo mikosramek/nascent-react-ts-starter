@@ -7,11 +7,7 @@ export const PokemonList = () => {
   return (
     <Styled.List>
       {Object.entries(pokemonRefs).map(([name, { url }], index) => {
-        return (
-          <Styled.ListItem key={`pokemon-${index}`}>
-            <PokemonCard name={name} url={url} />
-          </Styled.ListItem>
-        );
+        return <PokemonCard name={name} url={url} key={`pokemon-${index}`} />;
       })}
     </Styled.List>
   );

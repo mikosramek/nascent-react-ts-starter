@@ -13,12 +13,15 @@ type Props = {
 export const PokemonCard = ({ name, url }: Props) => {
   const { fetchPokemon } = usePokemon();
   const pokemon = usePokemonStore((state) => state.getPokemon(name));
+  const isPokemonFetched = usePokemonStore((state) =>
+    state.getIsPokemonFetched(name)
+  );
 
   const fetchPokemonData = useCallback(() => {
-    if (!pokemon) {
+    if (!isPokemonFetched) {
       fetchPokemon({ url });
     }
-  }, [fetchPokemon, pokemon, url]);
+  }, [fetchPokemon, isPokemonFetched, url]);
 
   useEffect(() => {
     fetchPokemonData();
@@ -26,18 +29,22 @@ export const PokemonCard = ({ name, url }: Props) => {
   }, []);
 
   return (
-    <Styled.Wrapper>
-      {!pokemon && <LoadingIndicator />}
-      {!!pokemon && (
+    <>
+      {!isPokemonFetched && <LoadingIndicator />}
+      {!!isPokemonFetched && (
         <>
-          <Styled.Name>{pokemon.name}</Styled.Name>
-          <Styled.Image
-            src={pokemon.sprites.front_default}
-            alt={`${pokemon.name}`}
-          />
-          <Styled.Types types={pokemon.types} />
+          {!!pokemon && (
+            <Styled.Wrapper>
+              <Styled.Name>{pokemon.name}</Styled.Name>
+              <Styled.Image
+                src={pokemon.sprites.front_default}
+                alt={`${pokemon.name}`}
+              />
+              <Styled.Types types={pokemon.types} />
+            </Styled.Wrapper>
+          )}
         </>
       )}
-    </Styled.Wrapper>
+    </>
   );
 };
