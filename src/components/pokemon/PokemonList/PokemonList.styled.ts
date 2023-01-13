@@ -14,5 +14,3 @@ export const List = styled.ul`
   border-top: 1px solid var(--shadow);
   border-bottom: 1px solid var(--shadow);
 `;
-
-export const ListItem = styled.li``;

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useInView } from "react-intersection-observer";
 import { PokemonType } from "store/pokemon";
 import * as Styled from "./PokemonCard.styled";
 
@@ -16,13 +18,21 @@ export const InnerPokemonCard = ({
   sprite,
   types,
 }: InnerPokemonCardProps) => {
-  // TODO: Slowload that image in
+  const [imageLoaded, setLoaded] = useState(false);
+  const { ref, inView } = useInView();
   return (
-    <Styled.InnerWrapper>
+    <Styled.InnerWrapper ref={ref}>
       {!!name && (
         <>
           <Styled.Name>{name}</Styled.Name>
-          <Styled.Image src={sprite} alt={`${name}`} />
+          <Styled.ImagePlaceholder loaded={imageLoaded} />
+          {!!inView && (
+            <Styled.Image
+              src={sprite}
+              alt={`${name}`}
+              onLoad={() => setLoaded(true)}
+            />
+          )}
           <Styled.Types types={types} />
         </>
       )}
