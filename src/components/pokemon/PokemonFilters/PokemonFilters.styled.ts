@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { phone, widePhone } from "styles/media";
 
 export const Form = styled.form`
   margin-bottom: 10px;
@@ -6,12 +7,19 @@ export const Form = styled.form`
 
 export const Fieldset = styled.fieldset`
   margin: 0;
+  align-items: center;
 `;
 
 export const Legend = styled.legend`
   display: block;
   font-size: 18px;
   font-weight: bold;
+`;
+
+export const Select = styled.select`
+  ${phone(css`
+    margin-bottom: 15px;
+  `)}
 `;
 
 export const RadioLabel = styled.label`

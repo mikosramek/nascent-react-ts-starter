@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { phone } from "styles/media";
 import { Button as ButtonBase } from "styles/shared";
 
 export const InfoWrapper = styled.div`
@@ -6,12 +7,18 @@ export const InfoWrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   margin-top: 25px;
+  ${phone(css`
+    flex-direction: column;
+  `)}
 `;
 
 export const InfoList = styled.ul`
   padding: 0;
   margin: 0;
   list-style-position: inside;
+  ${phone(css`
+    margin-bottom: 15px;
+  `)}
 `;
 
 export const PokemonWrapper = styled.div`

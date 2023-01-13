@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { PokemonTypes } from "components/pokemon/PokemonTypes";
+import { phone, smallPhone, tablet } from "styles/media";
 
 export const InnerWrapper = styled.div`
   position: relative;
@@ -107,4 +108,13 @@ export const Wrapper = styled.li`
     box-shadow: 0 2px 2px var(--shadow);
     transition: all 0.2s ease-out;
   }
+  ${tablet(css`
+    width: calc((100% - 30px) / 3);
+  `)}
+  ${phone(css`
+    width: calc((100% - 20px) / 2);
+  `)}
+  ${smallPhone(css`
+    width: 100%;
+  `)}
 `;

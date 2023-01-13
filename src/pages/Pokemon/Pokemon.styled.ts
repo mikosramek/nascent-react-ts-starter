@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { phone, tablet } from "styles/media";
 
 export const LoadingWrapper = styled.div`
   height: 35vh;
@@ -12,6 +13,12 @@ export const ChosenPokemonCard = styled.div`
   box-shadow: 0px 2px 8px var(--shadow);
   width: calc(100% / 4);
   border-radius: 5px;
+  ${tablet(css`
+    width: auto;
+  `)}
+  ${phone(css`
+    margin-bottom: 15px;
+  `)}
 `;
 
 export const ChosenWrapper = styled.div`
@@ -19,6 +26,9 @@ export const ChosenWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   margin-bottom: 10px;
+  ${phone(css`
+    flex-direction: column;
+  `)}
 `;
 
 export const ButtonWrapper = styled.div`

@@ -12,6 +12,5 @@ export const ButtonWrapper = styled.div`
 export const Button = styled(ButtonBase)`
   cursor: pointer;
   margin-right: 5px;
-  font-size: 18px;
   flex-grow: 1;
 `;

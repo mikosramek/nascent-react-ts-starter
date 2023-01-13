@@ -1,15 +1,23 @@
 import styled, { css } from "styled-components";
-import { shortScreen } from "./media";
+import { phone, shortScreen, smallPhone, widePhone } from "./media";
 
 export const Wrapper = styled.section`
   border: 1px solid var(--border);
   padding: 25px;
   width: 70%;
+  max-width: 1024px;
   border-radius: 20px;
   background: var(--white);
   box-shadow: 0 2px 10px var(--shadow);
   max-height: 100%;
   overflow-y: hidden;
+  margin: 0 auto;
+  ${phone(css`
+    width: 80%;
+  `)}
+  ${smallPhone(css`
+    width: 100%;
+  `)}
   ${shortScreen(css`
     overflow-y: scroll;
   `)}
@@ -31,6 +39,9 @@ export const Heading = styled.h2`
     width: 100%;
     background: var(--black);
   }
+  ${phone(css`
+    font-size: 18px;
+  `)}
 `;
 
 export const Button = styled.button`
@@ -41,4 +52,8 @@ export const Button = styled.button`
   &:disabled {
     cursor: auto;
   }
+  ${phone(css`
+    font-size: 16px;
+    padding: 3px 6px 4px;
+  `)}
 `;

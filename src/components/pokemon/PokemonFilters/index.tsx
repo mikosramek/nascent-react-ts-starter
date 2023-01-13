@@ -29,7 +29,7 @@ export const PokemonFilters = () => {
       />
       <Styled.Fieldset>
         <Styled.Legend>Search by type:</Styled.Legend>
-        <select
+        <Styled.Select
           name="type"
           id="type"
           onChange={(e) => setFilter(undefined, e.target.value as TypeFilter)}
@@ -41,7 +41,7 @@ export const PokemonFilters = () => {
               {type}
             </option>
           ))}
-        </select>
+        </Styled.Select>
         {Object.keys(filterModes).map((filterType, index) => {
           return (
             <React.Fragment key={`filter-mode-${index}`}>
