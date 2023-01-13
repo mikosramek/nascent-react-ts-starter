@@ -37,8 +37,6 @@ interface State {
   pokemonTypeFilter: TypeFilter;
   pokemonTypeFilterMode: FilterMode;
   setFilter: (name?: string, type?: TypeFilter, mode?: FilterMode) => void;
-  chosenPokemonRef: InnerPokemonCardProps;
-  setChosenPokemonRef: ({ name, sprite, types }: InnerPokemonCardProps) => void;
 }
 
 type FilterProps = {
@@ -122,13 +120,6 @@ export const usePokemonStore = create<State>()(
           ...(type !== undefined ? { pokemonTypeFilter: type } : {}),
           ...(mode !== undefined ? { pokemonTypeFilterMode: mode } : {}),
         })),
-      chosenPokemonRef: {},
-      setChosenPokemonRef: ({
-        name = "",
-        sprite = "",
-        types = [],
-      }: InnerPokemonCardProps) =>
-        set(() => ({ chosenPokemonRef: { name, sprite, types } })),
     }),
     { name: "pokemon-state" }
   )

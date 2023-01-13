@@ -2,10 +2,10 @@ import { useCallback, useEffect } from "react";
 import { usePokemon } from "hooks/api/usePokemon";
 import { usePokemonStore } from "store/pokemon";
 import { LoadingIndicator } from "components/shared/LoadingIndicator";
+import { useUserStore } from "store/user";
 
-import * as Styled from "./PokemonCard.styled";
 import { InnerPokemonCard } from "./InnerPokemonCard";
-import { STORED_POKEMON_KEY } from "utils/general";
+import * as Styled from "./PokemonCard.styled";
 
 type Props = {
   name: string;
@@ -15,7 +15,7 @@ type Props = {
 export const PokemonCard = ({ name, url }: Props) => {
   const { fetchPokemon } = usePokemon();
   const pokemon = usePokemonStore((state) => state.getPokemon(name));
-  const setChosenPokemonRef = usePokemonStore(
+  const setChosenPokemonRef = useUserStore(
     (state) => state.setChosenPokemonRef
   );
   const isPokemonFetched = usePokemonStore((state) =>
@@ -41,7 +41,6 @@ export const PokemonCard = ({ name, url }: Props) => {
       types: pokemon.types,
     };
     setChosenPokemonRef(ref);
-    localStorage.setItem(STORED_POKEMON_KEY, JSON.stringify(ref));
   }, [pokemon, setChosenPokemonRef]);
 
   return (

@@ -5,17 +5,16 @@ import { PokemonFilters } from "components/pokemon/PokemonFilters";
 import { PokemonList } from "components/pokemon/PokemonList";
 import { LoadingIndicator } from "components/shared/LoadingIndicator";
 import { usePokemon } from "hooks/api/usePokemon";
-import { usePokemonStore } from "store/pokemon";
 import { Wrapper, Heading, Button } from "styles/shared";
-import { STORED_POKEMON_KEY } from "utils/general";
 
 import * as Styled from "./Pokemon.styled";
+import { useUserStore } from "store/user";
 
 export const Pokemon = () => {
   const navigate = useNavigate();
   const { fetchedPokemonRefs } = usePokemon();
-  const chosenPokemonRef = usePokemonStore((state) => state.chosenPokemonRef);
-  const setChosenPokemonRef = usePokemonStore(
+  const chosenPokemonRef = useUserStore((state) => state.chosenPokemonRef);
+  const setChosenPokemonRef = useUserStore(
     (state) => state.setChosenPokemonRef
   );
 
@@ -25,7 +24,6 @@ export const Pokemon = () => {
 
   const handleClearingPokemon = useCallback(() => {
     setChosenPokemonRef({});
-    localStorage.setItem(STORED_POKEMON_KEY, JSON.stringify({}));
   }, [setChosenPokemonRef]);
 
   return (

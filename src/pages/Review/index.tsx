@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InnerPokemonCard } from "components/pokemon/PokemonCard/InnerPokemonCard";
-import { usePokemonStore } from "store/pokemon";
 import { useUserStore } from "store/user";
 import { Wrapper, Heading } from "styles/shared";
 import { normalizeCamelCase } from "utils/general";
@@ -16,7 +15,7 @@ const Response = {
 
 export const Review = () => {
   const navigate = useNavigate();
-  const chosenPokemon = usePokemonStore((state) => state.chosenPokemonRef);
+  const chosenPokemon = useUserStore((state) => state.chosenPokemonRef);
   const user = useUserStore((state) => state.user);
 
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -16,6 +16,7 @@ export const InfoList = styled.ul`
 
 export const PokemonWrapper = styled.div`
   margin-bottom: 10px;
+  width: 150px;
   & div {
     height: 150px;
     box-shadow: 0px 2px 8px var(--shadow);

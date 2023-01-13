@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
+import { InnerPokemonCardProps } from "components/pokemon/PokemonCard/InnerPokemonCard";
 
 export type User = {
   firstName: string;
@@ -11,21 +12,39 @@ export type User = {
 interface State {
   user: User;
   setUser: (newUser: User) => void;
+  updateUser: (key: string, value: string) => void;
+  clearUser: () => void;
+  chosenPokemonRef: InnerPokemonCardProps;
+  setChosenPokemonRef: ({ name, sprite, types }: InnerPokemonCardProps) => void;
 }
+
+const userBaseState = {
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
+  address: "",
+};
 
 export const useUserStore = create<State>()(
   devtools(
-    (set, get) => ({
-      user: {
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-        address: "",
-      },
-      setUser: (newUser: User) => set(() => ({ user: newUser })),
-    }),
-    {
-      name: "user-store",
-    }
+    persist(
+      (set, get) => ({
+        user: userBaseState,
+        setUser: (newUser: User) => set(() => ({ user: newUser })),
+        updateUser: (key: string, value: string) =>
+          set((state) => ({ user: { ...state.user, [key]: value } })),
+        clearUser: () => set(() => ({ user: userBaseState })),
+        chosenPokemonRef: {},
+        setChosenPokemonRef: ({
+          name = "",
+          sprite = "",
+          types = [],
+        }: InnerPokemonCardProps) =>
+          set(() => ({ chosenPokemonRef: { name, sprite, types } })),
+      }),
+      {
+        name: "user-store",
+      }
+    )
   )
 );
