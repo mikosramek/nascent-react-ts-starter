@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { phone, widePhone } from "styles/media";
+import { phone } from "styles/media";
 
 export const Form = styled.form`
   margin-bottom: 10px;

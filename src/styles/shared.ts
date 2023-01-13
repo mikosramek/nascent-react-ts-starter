@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { phone, shortScreen, smallPhone, widePhone } from "./media";
+import { phone, shortScreen, smallPhone } from "./media";
 
 export const Wrapper = styled.section`
   border: 1px solid var(--border);

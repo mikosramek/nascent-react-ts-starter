@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { InnerPokemonCardProps } from "components/pokemon/PokemonCard/InnerPokemonCard";
 import { ValidColorType } from "utils/general";
 
 export type PokemonRef = Record<string, { url: string }>;
